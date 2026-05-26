@@ -1107,33 +1107,33 @@ body {
 
 /* Scoped Corner Flower Ornaments for smaller Uploader Plaque */
 .uploader-card .corner-ornament {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
     opacity: 0.95;
     z-index: 4;
 }
 
 .uploader-card .corner-ornament.top-left {
-    top: -30px;
-    left: -30px;
+    top: -35px;
+    left: -35px;
     transform: rotate(180deg);
 }
 
 .uploader-card .corner-ornament.top-right {
-    top: -30px;
-    right: -30px;
+    top: -35px;
+    right: -35px;
     transform: none;
 }
 
 .uploader-card .corner-ornament.bottom-left {
-    bottom: -30px;
-    left: -30px;
+    bottom: -35px;
+    left: -35px;
     transform: rotate(180deg);
 }
 
 .uploader-card .corner-ornament.bottom-right {
-    bottom: -30px;
-    right: -30px;
+    bottom: -35px;
+    right: -35px;
     transform: none;
 }
 
