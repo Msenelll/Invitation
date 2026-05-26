@@ -1774,3 +1774,34 @@ body {
     }
 }
 
+/* ==========================================================================
+   ELEGANT NEOCLASSICAL FOOTER
+   ========================================================================== */
+.app-footer {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.copyright-text {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.85;
+    text-align: center;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    transition: var(--transition-fast);
+}
+
+.copyright-text:hover {
+    color: var(--gold-dark);
+    opacity: 1;
+}
+
