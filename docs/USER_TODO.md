@@ -40,3 +40,14 @@ Davetiyenizi herkesin erişebileceği şekilde internette yayınlamak için GitH
 4. **Build and deployment** başlığı altındaki **Source** kısmını "Deploy from a branch" olarak seçin.
 5. **Branch** kısmını `main` (veya kodlarınızın olduğu ana dalı) ve klasörü `/ (root)` seçip **Save** butonuna basın.
 6. Birkaç dakika içerisinde sayfanın üst kısmında davetiyenizin canlı yayın linki (`https://kullaniciadi.github.io/Invitation`) belirecektir.
+
+---
+
+## 5. Medya Gönderimi (Google Drive & Sheets Entegrasyonu) Kontrolü
+Dosya yükleyici arayüzü Google Apps Script Web App altyapısına doğrudan bağlanmıştır. Gönderilen tüm görsel ve videolar otomatik olarak Drive'a yüklenir ve loglar E-Tabloya yazılır.
+- **Yüklenen Medyaları Görme:** Yüklediğiniz dosyaları görmek için aşağıdaki Google Drive klasör bağlantısını ziyaret edebilirsiniz:
+  [Google Drive Medya Klasörü](https://drive.google.com/drive/folders/1lILYdQahFaFe2mCpWCG6QDiM3Y1ueT-W?usp=drive_link)
+- **E-Tablo Yükleme Logları:** Yükleme durumlarını ("In Progress", "DONE", "Failed") ve kullanıcı bilgilerini görmek için aşağıdaki Sheets dokümanını inceleyebilirsiniz:
+  [Google Sheets Upload Logları](https://docs.google.com/spreadsheets/d/1gELiIzCicQyrI0deVMCOVj8qsUp3aW2u6A2LnIjdsmE/edit?gid=0#gid=0)
+- **Kullanılan Script URL'i:** `https://script.google.com/macros/s/AKfycbwXbV7_1yxUjG9-U640nxOiDFpYxTAHcLT04ROWp4sH9J-2L5EsqTCSLlI2AQiVu5TD/exec`
+
