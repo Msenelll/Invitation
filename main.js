@@ -133,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const timeFormatter = new Intl.DateTimeFormat(clientLocale, {
                 hour: '2-digit',
                 minute: '2-digit',
-                timeZoneName: 'short',
                 timeZone: clientTimeZone
             });
 
@@ -142,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Separate date representation
             mainDateNode.textContent = formattedDate;
-            mainTimeNode.textContent = formattedTime;
+            mainTimeNode.textContent = state.lang === 'tr' ? `Saat ${formattedTime}` : `${formattedTime}`;
 
             // Status message regarding client timezone conversion
             const labelText = translations[state.lang].localTimeLabel;
@@ -152,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Timezone formatting error: ", e);
             // Secure graceful fallback
             mainDateNode.textContent = state.lang === 'tr' ? '21 Haziran 2026' : 'June 21, 2026';
-            mainTimeNode.textContent = state.lang === 'tr' ? 'Pazar ✦ Saat 15:00 (GMT+3)' : 'Sunday ✦ 15:00 (GMT+3)';
-            tzTextNode.textContent = "Eskişehir, Turkey (GMT+3)";
+            mainTimeNode.textContent = state.lang === 'tr' ? 'Pazar ✦ Saat 15:00' : 'Sunday ✦ 15:00';
+            tzTextNode.textContent = "Eskişehir, Turkey";
         }
     }
 
