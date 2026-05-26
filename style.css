@@ -1076,7 +1076,7 @@ body {
 }
 
 /* ==========================================================================
-   PREMIUM DARK GLASSMORPHISM RESUMABLE MEDIA UPLOADER STYLING
+   PREMIUM NEOCLASSICAL PLASTER RESUMABLE MEDIA UPLOADER STYLING
    ========================================================================== */
 .media-uploader-section {
     width: 100%;
@@ -1086,29 +1086,31 @@ body {
 }
 
 .uploader-card {
-    background: rgba(13, 18, 30, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
-    padding: 35px 25px;
+    background-color: var(--card-plaster);
+    background-image: url('img/plaster_bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 12px;
+    padding: 45px 35px;
     box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-        0 0 40px rgba(168, 85, 247, 0.04),
-        inset 0 1px 0px rgba(255, 255, 255, 0.1);
-    font-family: 'Outfit', sans-serif;
-    color: #F8FAFC;
+        0 20px 40px rgba(78, 72, 66, 0.08), 
+        0 1px 3px rgba(0, 0, 0, 0.02), 
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8), 
+        inset 0 0 30px rgba(0, 0, 0, 0.015);
+    font-family: var(--font-sans);
+    color: var(--text-charcoal);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.5s ease;
 }
 
 .uploader-card:hover {
-    border-color: rgba(168, 85, 247, 0.25);
     box-shadow: 
-        0 30px 60px -12px rgba(0, 0, 0, 0.6), 
-        0 0 50px rgba(168, 85, 247, 0.08),
-        inset 0 1px 0px rgba(255, 255, 255, 0.15);
+        0 30px 60px rgba(78, 72, 66, 0.14), 
+        0 1px 3px rgba(0, 0, 0, 0.02), 
+        inset 0 0 0 1px rgba(255, 255, 255, 0.95), 
+        inset 0 0 30px rgba(0, 0, 0, 0.01);
 }
 
 .uploader-state {
@@ -1122,25 +1124,27 @@ body {
     flex-direction: column;
     gap: 22px;
     opacity: 1;
+    z-index: 10;
+    position: relative;
 }
 
 .uploader-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-serif);
     font-size: clamp(1.4rem, 5vw, 1.75rem);
     font-weight: 700;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--text-charcoal);
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #FFFFFF 50%, #A5B4FC 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    text-transform: none;
+    text-shadow: 
+        1px 1px 1px rgba(255, 255, 255, 0.95), 
+        1px 2px 3px rgba(0, 0, 0, 0.04);
 }
 
 .uploader-subtitle {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
     font-size: 0.825rem;
-    color: #94A3B8;
+    color: var(--text-muted);
     text-align: center;
     line-height: 1.5;
     margin-top: -8px;
@@ -1166,49 +1170,50 @@ body {
 }
 
 .uploader-input-group label {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 600;
-    color: #94A3B8;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .uploader-input-group input[type="text"] {
-    background: rgba(7, 10, 19, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    border-radius: 6px;
     padding: 12px 14px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.9rem;
-    color: #FFFFFF;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--text-charcoal);
     outline: none;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
 }
 
 .uploader-input-group input[type="text"]:focus {
-    border-color: #A855F7;
-    background: rgba(7, 10, 19, 0.8);
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+    border-color: var(--gold-foil);
+    background: white;
+    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.08);
 }
 
 .drag-drop-zone {
-    border: 2px dashed rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
+    border: 2px dashed rgba(197, 160, 89, 0.35);
+    border-radius: 8px;
     padding: 26px 15px;
-    background: rgba(7, 10, 19, 0.3);
+    background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .drag-drop-zone.dragover {
-    border-color: #A855F7;
-    background: rgba(168, 85, 247, 0.08);
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+    border-color: var(--gold-foil);
+    background: rgba(197, 160, 89, 0.06);
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.1);
 }
 
 .hidden-file-input {
@@ -1226,54 +1231,56 @@ body {
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(197, 160, 89, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: var(--transition-smooth);
 }
 
 .drag-drop-zone:hover .upload-icon-wrapper {
-    transform: scale(1.06);
-    background: rgba(168, 85, 247, 0.12);
-    border-color: rgba(168, 85, 247, 0.25);
+    transform: scale(1.06) translateY(-2px);
+    background: white;
+    border-color: var(--gold-foil);
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.15);
 }
 
 .upload-icon {
-    color: #818CF8;
+    color: var(--gold-foil);
     width: 22px;
     height: 22px;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
 }
 
 .drag-drop-zone:hover .upload-icon {
-    color: #A855F7;
+    color: var(--gold-dark);
 }
 
 .drag-drop-text {
     font-size: 0.88rem;
     font-weight: 500;
-    color: #E2E8F0;
+    color: var(--text-charcoal);
     line-height: 1.4;
 }
 
 .drag-drop-subtext {
     font-size: 0.72rem;
-    color: #64748B;
+    color: var(--text-muted);
 }
 
 /* File Queue Component */
 .selected-files-queue {
-    background: rgba(7, 10, 19, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(197, 160, 89, 0.15);
+    border-radius: 6px;
     padding: 14px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     max-height: 180px;
     overflow-y: auto;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.01);
 }
 
 /* Elegant scrollbar for uploader */
@@ -1281,19 +1288,19 @@ body {
     width: 4px;
 }
 .selected-files-queue::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.02);
 }
 .selected-files-queue::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gold-foil);
     border-radius: 2px;
 }
 
 .queue-title {
     font-size: 0.75rem;
     font-weight: 600;
-    color: #64748B;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .files-list {
@@ -1307,9 +1314,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(197, 160, 89, 0.15);
+    border-radius: 4px;
     padding: 8px 12px;
     font-size: 0.82rem;
     animation: fileSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1327,7 +1334,7 @@ body {
 }
 
 .file-icon {
-    color: #818CF8;
+    color: var(--gold-foil);
     width: 16px;
     height: 16px;
     flex-shrink: 0;
@@ -1336,12 +1343,12 @@ body {
 .file-name {
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #E2E8F0;
+    color: var(--text-charcoal);
     font-weight: 500;
 }
 
 .file-size {
-    color: #64748B;
+    color: var(--text-muted);
     font-size: 0.72rem;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
@@ -1353,7 +1360,7 @@ body {
     color: #EF4444;
     opacity: 0.75;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1363,14 +1370,14 @@ body {
 
 .remove-file-btn:hover {
     opacity: 1;
-    background: rgba(239, 68, 68, 0.15);
+    background: rgba(239, 68, 68, 0.1);
 }
 
 /* Info Shield Banner */
 .uploader-info-banner {
     background: rgba(52, 211, 153, 0.04);
-    border: 1px solid rgba(52, 211, 153, 0.15);
-    border-radius: 14px;
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    border-radius: 6px;
     padding: 12px 14px;
     display: flex;
     align-items: flex-start;
@@ -1378,7 +1385,7 @@ body {
 }
 
 .info-shield-icon {
-    color: #34D399;
+    color: #10B981;
     flex-shrink: 0;
     width: 18px;
     height: 18px;
@@ -1387,56 +1394,78 @@ body {
 
 .info-text {
     font-size: 0.74rem;
-    color: #A7F3D0;
+    color: #065F46;
     line-height: 1.45;
     text-align: left;
+    font-weight: 500;
 }
 
-/* Gradient Primary Button */
+/* Neoclassical Gold Button */
 .uploader-gradient-btn {
-    background: linear-gradient(135deg, #A855F7 0%, #D946EF 100%);
+    background: var(--gold-gradient);
     color: #FFFFFF;
     border: none;
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 14px 20px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     box-shadow: 
-        0 8px 20px -6px rgba(168, 85, 247, 0.4), 
-        0 0 15px rgba(217, 70, 239, 0.15);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        0 4px 15px rgba(197, 160, 89, 0.3), 
+        inset 1px 1px 0px rgba(255, 255, 255, 0.3);
+    transition: var(--transition-smooth);
     outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.uploader-gradient-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transition: none;
+}
+
+.uploader-gradient-btn:hover::before {
+    left: 200%;
+    transition: left 0.7s ease-in-out;
 }
 
 .uploader-gradient-btn:hover {
     transform: translateY(-2px);
     box-shadow: 
-        0 12px 25px -6px rgba(168, 85, 247, 0.5), 
-        0 0 20px rgba(217, 70, 239, 0.25);
+        0 6px 20px rgba(197, 160, 89, 0.45), 
+        inset 1px 1px 0px rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
 }
 
 .uploader-gradient-btn:active {
     transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2);
 }
 
 .uploader-gradient-btn:disabled {
-    background: #1E293B;
-    color: #475569;
+    background: #E2E8F0;
+    color: #94A3B8;
     box-shadow: none;
     cursor: not-allowed;
     transform: none;
 }
 
 .uploader-gradient-btn .btn-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     color: #FFFFFF;
 }
 
@@ -1455,36 +1484,37 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 3.5px solid rgba(168, 85, 247, 0.1);
-    border-top-color: #A855F7;
+    border: 3.5px solid rgba(197, 160, 89, 0.1);
+    border-top-color: var(--gold-foil);
     border-radius: 50%;
     animation: uploaderSpin 1.1s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
 }
 
 .spinner-icon {
-    color: #A855F7;
+    color: var(--gold-foil);
     width: 20px;
     height: 20px;
     animation: uploaderSpinRev 3.5s linear infinite;
 }
 
 .progress-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-serif);
     font-size: 1.25rem;
     font-weight: 600;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--text-charcoal);
+    text-shadow: 1px 1px 0px white;
 }
 
 .progress-subtitle {
     font-size: 0.8rem;
-    color: #818CF8;
+    color: var(--gold-dark);
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-top: -6px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 0 20px;
 }
 
@@ -1500,21 +1530,21 @@ body {
     justify-content: space-between;
     font-size: 0.74rem;
     font-weight: 600;
-    color: #64748B;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .progress-percentage {
-    color: #A855F7;
+    color: var(--gold-dark);
     font-variant-numeric: tabular-nums;
     font-weight: 700;
 }
 
 .progress-bar-track {
     height: 6px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.02);
+    background: rgba(197, 160, 89, 0.08);
+    border: 1px solid rgba(197, 160, 89, 0.04);
     border-radius: 9999px;
     overflow: hidden;
     width: 100%;
@@ -1522,7 +1552,7 @@ body {
 
 .progress-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #A855F7 0%, #D946EF 100%);
+    background: var(--gold-gradient);
     border-radius: 9999px;
     width: 0%;
     transition: width 0.25s cubic-bezier(0.1, 0.8, 0.2, 1);
@@ -1530,22 +1560,22 @@ body {
 
 .overall-track {
     height: 8px;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(197, 160, 89, 0.12);
 }
 
 .overall-fill {
-    background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 50%, #D946EF 100%);
+    background: var(--gold-gradient);
 }
 
 #overall-pct {
-    color: #3B82F6;
+    color: var(--gold-dark);
 }
 
 /* Warning Banner */
 .uploader-warning-banner {
     background: rgba(245, 158, 11, 0.04);
-    border: 1px solid rgba(245, 158, 11, 0.15);
-    border-radius: 14px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 6px;
     padding: 12px 14px;
     display: flex;
     align-items: flex-start;
@@ -1562,9 +1592,10 @@ body {
 
 .warning-text {
     font-size: 0.74rem;
-    color: #FDE68A;
+    color: #92400E;
     line-height: 1.45;
     text-align: left;
+    font-weight: 500;
 }
 
 /* State 3: Success Screen */
@@ -1579,7 +1610,7 @@ body {
     height: 68px;
     border-radius: 50%;
     background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1592,16 +1623,17 @@ body {
 }
 
 .success-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-serif);
     font-size: 1.35rem;
     font-weight: 700;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--text-charcoal);
+    text-shadow: 1px 1px 0px white;
 }
 
 .success-subtitle {
     font-size: 0.825rem;
-    color: #94A3B8;
+    color: var(--text-muted);
     text-align: center;
     line-height: 1.55;
     margin-top: -6px;
@@ -1610,26 +1642,29 @@ body {
 
 .uploader-outline-btn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    border-radius: 6px;
     padding: 12px 20px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.85rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #FFFFFF;
+    color: var(--text-charcoal);
+    letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.25s ease;
+    transition: var(--transition-smooth);
     width: 100%;
     margin-top: 5px;
 }
 
 .uploader-outline-btn:hover {
-    border-color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--gold-foil);
+    background: rgba(197, 160, 89, 0.05);
+    color: var(--gold-dark);
 }
 
 .uploader-outline-btn .btn-icon {
@@ -1638,7 +1673,7 @@ body {
 }
 
 /* ==========================================================================
-   GLOBAL PREMIUM TOAST NOTIFICATION SYSTEM
+   GLOBAL PREMIUM TOAST NOTIFICATION SYSTEM (NEOCLASSICAL STYLE)
    ========================================================================== */
 .toast-container {
     position: fixed;
@@ -1655,16 +1690,16 @@ body {
 }
 
 .toast {
-    background: rgba(15, 23, 42, 0.92);
+    background: rgba(250, 249, 246, 0.96);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    border-radius: 8px;
     padding: 12px 16px;
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(78, 72, 66, 0.15);
     pointer-events: auto;
     animation: uploaderToastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -1692,10 +1727,10 @@ body {
 }
 
 .toast-message {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
     font-size: 0.8rem;
-    font-weight: 500;
-    color: #F1F5F9;
+    font-weight: 600;
+    color: var(--text-charcoal);
     line-height: 1.4;
 }
 
