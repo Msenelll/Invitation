@@ -1035,27 +1035,26 @@ body {
     .countdown-val {
         font-size: 1.5rem;
     }
-    
-    /* Responsive corner ornaments adjustment */
+        /* Responsive corner ornaments adjustment */
     .corner-ornament {
-        width: 110px;
-        height: 110px;
+        width: 170px;
+        height: 170px;
     }
     .corner-ornament.top-left {
-        top: -25px;
-        left: -25px;
+        top: -35px;
+        left: -35px;
     }
     .corner-ornament.top-right {
-        top: -25px;
-        right: -25px;
+        top: -35px;
+        right: -35px;
     }
     .corner-ornament.bottom-left {
-        bottom: -25px;
-        left: -25px;
+        bottom: -35px;
+        left: -35px;
     }
     .corner-ornament.bottom-right {
-        bottom: -25px;
-        right: -25px;
+        bottom: -35px;
+        right: -35px;
     }
 }
 
