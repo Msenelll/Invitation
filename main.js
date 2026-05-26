@@ -424,4 +424,438 @@ document.addEventListener('DOMContentLoaded', () => {
             rsvpSuccess.classList.add('show');
         }, 300);
     });
+
+    // ==========================================================================
+    // PREMIUM DARK RESUMABLE MEDIA UPLOADER LOGIC
+    // ==========================================================================
+    
+    // Initialize Lucide icons on page load
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+    
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXbV7_1yxUjG9-U640nxOiDFpYxTAHcLT04ROWp4sH9J-2L5EsqTCSLlI2AQiVu5TD/exec";
+    const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB fixed chunk size
+    
+    // DOM Elements
+    const mediaFormState = document.getElementById('uploader-form-state');
+    const mediaProgressState = document.getElementById('uploader-progress-state');
+    const mediaSuccessState = document.getElementById('uploader-success-state');
+    
+    const mediaUploadForm = document.getElementById('media-upload-form');
+    const dragDropZone = document.getElementById('drag-drop-zone');
+    const mediaFileInput = document.getElementById('media-file-input');
+    const selectedFilesQueue = document.getElementById('selected-files-queue');
+    const filesList = document.getElementById('files-list');
+    
+    const currentUploadingFile = document.getElementById('current-uploading-file');
+    const activeFilePct = document.getElementById('active-file-pct');
+    const activeFileBar = document.getElementById('active-file-bar');
+    const overallPct = document.getElementById('overall-pct');
+    const overallBar = document.getElementById('overall-bar');
+    
+    const startUploadBtn = document.getElementById('start-upload-btn');
+    const newUploadBtn = document.getElementById('new-upload-btn');
+    const toastContainer = document.getElementById('toast-container');
+    
+    let selectedFiles = []; // Holds file objects
+
+    // Toast Notification System
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const iconName = type === 'success' ? 'check-circle' : 'alert-circle';
+        toast.innerHTML = `
+            <i data-lucide="${iconName}" class="toast-icon"></i>
+            <span class="toast-message">${message}</span>
+        `;
+        
+        toastContainer.appendChild(toast);
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+        
+        // Hide after 4 seconds
+        setTimeout(() => {
+            toast.classList.add('hide');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 4000);
+    }
+
+    // Drag and drop events
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dragDropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDropZone.classList.add('dragover');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dragDropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDropZone.classList.remove('dragover');
+        }, false);
+    });
+
+    dragDropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFilesSelection(files);
+    });
+
+    dragDropZone.addEventListener('click', () => {
+        mediaFileInput.click();
+    });
+
+    mediaFileInput.addEventListener('change', (e) => {
+        handleFilesSelection(e.target.files);
+    });
+
+    function handleFilesSelection(files) {
+        const maxSize = 510 * 1024 * 1024; // 510MB
+        
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            
+            // Validate mimeType (images or videos only)
+            if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+                showToast(
+                    state.lang === 'tr' 
+                        ? `"${file.name}" desteklenmeyen bir dosya türü. Sadece görsel veya video yükleyebilirsiniz.`
+                        : `"${file.name}" is not supported. Only images and videos are allowed.`,
+                    'error'
+                );
+                continue;
+            }
+            
+            // Validate size
+            if (file.size > maxSize) {
+                showToast(
+                    state.lang === 'tr'
+                        ? `"${file.name}" 510MB sınırını aşıyor.`
+                        : `"${file.name}" exceeds the 510MB limit.`,
+                    'error'
+                );
+                continue;
+            }
+            
+            // Check for duplicates
+            if (selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                continue;
+            }
+            
+            selectedFiles.push(file);
+        }
+        
+        renderFilesQueue();
+    }
+
+    function renderFilesQueue() {
+        filesList.innerHTML = '';
+        
+        if (selectedFiles.length === 0) {
+            selectedFilesQueue.classList.add('hidden');
+            return;
+        }
+        
+        selectedFilesQueue.classList.remove('hidden');
+        
+        selectedFiles.forEach((file, index) => {
+            const isVideo = file.type.startsWith('video/');
+            const iconName = isVideo ? 'video' : 'image';
+            const sizeStr = formatBytes(file.size);
+            
+            const li = document.createElement('li');
+            li.className = 'file-item';
+            li.innerHTML = `
+                <div class="file-info">
+                    <i data-lucide="${iconName}" class="file-icon"></i>
+                    <span class="file-name" title="${file.name}">${file.name}</span>
+                    <span class="file-size">${sizeStr}</span>
+                </div>
+                <button type="button" class="remove-file-btn" data-index="${index}" aria-label="Remove File">
+                    <i data-lucide="trash-2"></i>
+                </button>
+            `;
+            
+            filesList.appendChild(li);
+        });
+        
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+        
+        // Remove file button handler
+        const removeBtns = filesList.querySelectorAll('.remove-file-btn');
+        removeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(btn.getAttribute('data-index'));
+                selectedFiles.splice(idx, 1);
+                renderFilesQueue();
+            });
+        });
+    }
+
+    function formatBytes(bytes, decimals = 2) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+
+    // Stack-overflow safe Base64 chunk encoder
+    function uint8ArrayToBase64(uint8) {
+        let binary = "";
+        const len = uint8.length;
+        const chunk = 16384; 
+        for (let i = 0; i < len; i += chunk) {
+            const slice = uint8.subarray(i, i + chunk);
+            binary += String.fromCharCode.apply(null, slice);
+        }
+        return btoa(binary);
+    }
+
+    function readChunkAsBase64(blob) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                const uint8 = new Uint8Array(arrayBuffer);
+                try {
+                    const base64 = uint8ArrayToBase64(uint8);
+                    resolve(base64);
+                } catch (err) {
+                    reject(err);
+                }
+            };
+            reader.onerror = function(err) {
+                reject(err);
+            };
+            reader.readAsArrayBuffer(blob);
+        });
+    }
+
+    // Exponential Backoff Retry mechanism
+    async function sendRequestWithRetry(payload, retries = 3, delay = 1000) {
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP Error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.message || "Server responded with failure");
+            }
+            
+            return data;
+        } catch (error) {
+            if (retries > 0) {
+                console.warn(`API call failed. Retrying in ${delay}ms... (${retries} attempts remaining). Error:`, error);
+                await new Promise(resolve => setTimeout(resolve, delay));
+                return sendRequestWithRetry(payload, retries - 1, delay * 2);
+            }
+            throw error;
+        }
+    }
+
+    function switchState(stateName) {
+        mediaFormState.classList.remove('active');
+        mediaProgressState.classList.remove('active');
+        mediaSuccessState.classList.remove('active');
+        
+        if (stateName === 'form') {
+            mediaFormState.classList.add('active');
+        } else if (stateName === 'progress') {
+            mediaProgressState.classList.add('active');
+        } else if (stateName === 'success') {
+            mediaSuccessState.classList.add('active');
+        }
+    }
+    
+    function updateFileProgress(fileName, pct) {
+        activeFilePct.textContent = `${pct}%`;
+        activeFileBar.style.width = `${pct}%`;
+    }
+    
+    function updateOverallProgress(currentFileIndex, totalFiles, overallPctVal, totalBytesUploaded) {
+        overallPct.textContent = `${overallPctVal}%`;
+        overallBar.style.width = `${overallPctVal}%`;
+    }
+
+    // Submit Action Upload Trigger
+    mediaUploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const nameVal = document.getElementById('uploader-name').value.trim();
+        const surnameVal = document.getElementById('uploader-surname').value.trim();
+        
+        if (selectedFiles.length === 0) {
+            showToast(
+                state.lang === 'tr' 
+                    ? "Lütfen yüklenecek en az bir dosya seçin."
+                    : "Please select at least one file to upload.",
+                'error'
+            );
+            return;
+        }
+        
+        // Disable submit button
+        startUploadBtn.disabled = true;
+        
+        // Transition to Progress Card
+        switchState('progress');
+        
+        let rowNumber = null;
+        let folderId = null;
+        
+        try {
+            updateFileProgress("", 0);
+            updateOverallProgress(0, selectedFiles.length, 0, 0);
+            
+            // 1. Create Folder
+            currentUploadingFile.textContent = state.lang === 'tr' ? "Google Drive klasörü oluşturuluyor..." : "Creating Google Drive folder...";
+            const folderData = await sendRequestWithRetry({
+                action: "createFolder",
+                name: nameVal,
+                surname: surnameVal
+            });
+            folderId = folderData.folderId;
+            const folderUrl = folderData.folderUrl;
+            
+            // 2. Log Upload Start
+            currentUploadingFile.textContent = state.lang === 'tr' ? "Yükleme günlüğü başlatılıyor..." : "Initializing upload log...";
+            const startData = await sendRequestWithRetry({
+                action: "logUploadStart",
+                name: nameVal,
+                surname: surnameVal,
+                fileNames: selectedFiles.map(f => f.name),
+                folderUrl: folderUrl,
+                documentCount: selectedFiles.length
+            });
+            rowNumber = startData.rowNumber;
+            
+            // 3. Upload Files
+            let totalBytesToUpload = selectedFiles.reduce((acc, f) => acc + f.size, 0);
+            let totalBytesUploaded = 0;
+            
+            for (let fIdx = 0; fIdx < selectedFiles.length; fIdx++) {
+                const file = selectedFiles[fIdx];
+                currentUploadingFile.textContent = file.name;
+                
+                updateFileProgress(file.name, 0);
+                
+                // Initiate Resumable Session
+                const initData = await sendRequestWithRetry({
+                    action: "initiateUpload",
+                    fileName: file.name,
+                    fileSize: file.size,
+                    mimeType: file.type || "application/octet-stream",
+                    folderId: folderId
+                });
+                
+                const uploadUrl = initData.uploadUrl;
+                
+                // Start uploading chunks
+                let start = 0;
+                while (start < file.size) {
+                    const end = Math.min(start + CHUNK_SIZE, file.size);
+                    const chunk = file.slice(start, end);
+                    
+                    const chunkBase64 = await readChunkAsBase64(chunk);
+                    
+                    await sendRequestWithRetry({
+                        action: "uploadChunk",
+                        uploadUrl: uploadUrl,
+                        chunkBase64: chunkBase64,
+                        start: start,
+                        end: end,
+                        totalSize: file.size
+                    });
+                    
+                    const uploadedInChunk = end - start;
+                    totalBytesUploaded += uploadedInChunk;
+                    
+                    const filePct = Math.round((end / file.size) * 100);
+                    updateFileProgress(file.name, filePct);
+                    
+                    const overallPctVal = Math.round((totalBytesUploaded / totalBytesToUpload) * 100);
+                    updateOverallProgress(fIdx + 1, selectedFiles.length, overallPctVal, totalBytesUploaded);
+                    
+                    start = end;
+                }
+            }
+            
+            // 4. Log Upload Complete
+            currentUploadingFile.textContent = state.lang === 'tr' ? "Yükleme tamamlanıyor..." : "Completing upload...";
+            await sendRequestWithRetry({
+                action: "logUploadComplete",
+                rowNumber: rowNumber
+            });
+            
+            showToast(
+                state.lang === 'tr' 
+                    ? "Tüm dosyalarınız başarıyla yüklendi!" 
+                    : "All your files uploaded successfully!",
+                'success'
+            );
+            switchState('success');
+            
+        } catch (error) {
+            console.error("Upload workflow failed:", error);
+            showToast(
+                state.lang === 'tr'
+                    ? "Bir hata oluştu. Lütfen tekrar deneyin."
+                    : "An error occurred. Please try again.",
+                'error'
+            );
+            
+            // Log upload failed if rowNumber was successfully fetched
+            if (rowNumber !== null) {
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/plain;charset=utf-8"
+                        },
+                        body: JSON.stringify({
+                            action: "logUploadFailed",
+                            rowNumber: rowNumber
+                        })
+                    });
+                } catch (failErr) {
+                    console.error("Failed to log failure status to server:", failErr);
+                }
+            }
+            
+            switchState('form');
+            startUploadBtn.disabled = false;
+        }
+    });
+
+    // Reset Form for New Uploads
+    newUploadBtn.addEventListener('click', () => {
+        selectedFiles = [];
+        renderFilesQueue();
+        mediaUploadForm.reset();
+        switchState('form');
+        startUploadBtn.disabled = false;
+    });
+
 });

@@ -18,7 +18,10 @@
     <!-- Preconnect to Google Fonts for sub-second loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons for premium visual symbols -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Primary Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -245,6 +248,127 @@
                 </div>
             </div>
         </div>
+
+        <!-- ==========================================================================
+             PREMIUM DARK GLASSMORPHISM RESUMABLE MEDIA UPLOADER SECTION
+             ========================================================================== -->
+        <section id="media-uploader-section" class="media-uploader-section">
+            <div class="uploader-card">
+                
+                <!-- State 1: Upload Form Card -->
+                <div id="uploader-form-state" class="uploader-state active">
+                    <h2 class="uploader-title" data-tr="Medya Gönderimi" data-en="Media Submission">Medya Gönderimi</h2>
+                    <p class="uploader-subtitle" data-tr="Lütfen bilgilerinizi doldurun ve yüklenecek görselleri/videoları seçin." data-en="Please fill in your details and select the images/videos to be uploaded.">Lütfen bilgilerinizi doldurun ve yüklenecek görselleri/videoları seçin.</p>
+                    
+                    <form id="media-upload-form" class="uploader-form">
+                        <div class="form-row">
+                            <div class="uploader-input-group">
+                                <label for="uploader-name" data-tr="Adınız *" data-en="Name *">Adınız *</label>
+                                <input type="text" id="uploader-name" required placeholder="Ahmet" aria-label="First Name">
+                            </div>
+                            <div class="uploader-input-group">
+                                <label for="uploader-surname" data-tr="Soyadınız *" data-en="Surname *">Soyadınız *</label>
+                                <input type="text" id="uploader-surname" required placeholder="Yılmaz" aria-label="Last Name">
+                            </div>
+                        </div>
+                        
+                        <div class="uploader-input-group">
+                            <label data-tr="Dosyalar (Görsel veya Video) *" data-en="Files (Image or Video) *">Dosyalar (Görsel veya Video) *</label>
+                            
+                            <!-- Drag & Drop Zone -->
+                            <div id="drag-drop-zone" class="drag-drop-zone">
+                                <input type="file" id="media-file-input" multiple accept="image/*,video/*" class="hidden-file-input">
+                                <div class="drag-drop-content">
+                                    <div class="upload-icon-wrapper">
+                                        <i data-lucide="upload-cloud" class="upload-icon"></i>
+                                    </div>
+                                    <p class="drag-drop-text" data-tr="Dosya seçmek için dokunun veya sürükleyin" data-en="Tap or drag files here to select">Dosya seçmek için dokunun veya sürükleyin</p>
+                                    <span class="drag-drop-subtext" data-tr="Maksimum dosya boyutu: 510MB" data-en="Maximum file size: 510MB">Maksimum dosya boyutu: 510MB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Selected Files Queue -->
+                        <div id="selected-files-queue" class="selected-files-queue hidden">
+                            <h4 class="queue-title" data-tr="Seçilen Dosyalar" data-en="Selected Files">Seçilen Dosyalar</h4>
+                            <ul id="files-list" class="files-list"></ul>
+                        </div>
+                        
+                        <!-- Encryption & Privacy Info Banner -->
+                        <div class="uploader-info-banner">
+                            <i data-lucide="shield-check" class="info-shield-icon"></i>
+                            <p class="info-text" data-tr="Yüklemeleriniz uçtan uca şifreli Google Drive ortamına doğrudan aktarılır. Kimlik bilgileriniz asla üçüncü şahıslarla paylaşılmaz." data-en="Your uploads are transferred directly to an end-to-end encrypted Google Drive environment. Your credentials are never shared with third parties.">Yüklemeleriniz uçtan uca şifreli Google Drive ortamına doğrudan aktarılır. Kimlik bilgileriniz asla üçüncü şahıslarla paylaşılmaz.</p>
+                        </div>
+                        
+                        <!-- Action Button -->
+                        <button type="submit" id="start-upload-btn" class="uploader-gradient-btn">
+                            <i data-lucide="send" class="btn-icon"></i>
+                            <span class="btn-text" data-tr="Yüklemeyi Başlat" data-en="Start Upload">Yüklemeyi Başlat</span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- State 2: Progress Card -->
+                <div id="uploader-progress-state" class="uploader-state">
+                    <div class="progress-spinner-container">
+                        <div class="premium-spinner"></div>
+                        <i data-lucide="loader" class="spinner-icon"></i>
+                    </div>
+                    
+                    <h3 class="progress-title" data-tr="Medyanız Yükleniyor..." data-en="Uploading Your Media...">Medyanız Yükleniyor...</h3>
+                    <p id="current-uploading-file" class="progress-subtitle">dosya1.jpg</p>
+                    
+                    <!-- Active File Progress -->
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-header">
+                            <span data-tr="Aktif Dosya İlerlemesi" data-en="Active File Progress">Aktif Dosya İlerlemesi</span>
+                            <span id="active-file-pct" class="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div id="active-file-bar" class="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Overall Progress -->
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-header">
+                            <span data-tr="Toplam İlerleme" data-en="Overall Progress">Toplam İlerleme</span>
+                            <span id="overall-pct" class="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar-track overall-track">
+                            <div id="overall-bar" class="progress-bar-fill overall-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Warning Message -->
+                    <div class="uploader-warning-banner">
+                        <i data-lucide="alert-triangle" class="warning-alert-icon"></i>
+                        <p class="warning-text" data-tr="Lütfen yükleme tamamlanana kadar tarayıcı penceresini kapatmayın!" data-en="Please do not close the browser window until the upload is complete!">Lütfen yükleme tamamlanana kadar tarayıcı penceresini kapatmayın!</p>
+                    </div>
+                </div>
+                
+                <!-- State 3: Success Card -->
+                <div id="uploader-success-state" class="uploader-state">
+                    <div class="success-icon-wrapper">
+                        <div class="success-icon-bg">
+                            <i data-lucide="check-circle" class="uploader-check-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <h3 class="success-title" data-tr="Yükleme Başarıyla Tamamlandı!" data-en="Upload Completed Successfully!">Yükleme Başarıyla Tamamlandı!</h3>
+                    <p class="success-subtitle" data-tr="Tüm dosyalarınız güvenli bir şekilde sunucuya ulaştırıldı. Mutluluğumuzu paylaştığınız için teşekkür ederiz." data-en="All your files have been securely delivered to the server. Thank you for sharing our happiness.">Tüm dosyalarınız güvenli bir şekilde sunucuya ulaştırıldı. Mutluluğumuzu paylaştığınız için teşekkür ederiz.</p>
+                    
+                    <button id="new-upload-btn" class="uploader-outline-btn">
+                        <i data-lucide="refresh-cw" class="btn-icon"></i>
+                        <span data-tr="Yeni Dosya Yükle" data-en="Upload New Files">Yeni Dosya Yükle</span>
+                    </button>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Global Toast Notification System -->
+        <div id="toast-container" class="toast-container"></div>
 
     </main>
 

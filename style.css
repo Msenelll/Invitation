@@ -193,8 +193,10 @@ body {
     min-height: 100vh;
     padding: 40px 15px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+    gap: 40px;
     position: relative;
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(244, 243, 237, 0.8) 0%, rgba(240, 238, 230, 0.9) 90%),
@@ -1072,3 +1074,668 @@ body {
 .rsvp-btn, #btn-rsvp-trigger, .rsvp-modal-overlay, #rsvp-modal {
     display: none !important;
 }
+
+/* ==========================================================================
+   PREMIUM DARK GLASSMORPHISM RESUMABLE MEDIA UPLOADER STYLING
+   ========================================================================== */
+.media-uploader-section {
+    width: 100%;
+    max-width: 450px; /* Aligns perfectly with the neoclassical card width */
+    margin-top: 10px;
+    z-index: 10;
+}
+
+.uploader-card {
+    background: rgba(13, 18, 30, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 35px 25px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5), 
+        0 0 40px rgba(168, 85, 247, 0.04),
+        inset 0 1px 0px rgba(255, 255, 255, 0.1);
+    font-family: 'Outfit', sans-serif;
+    color: #F8FAFC;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.uploader-card:hover {
+    border-color: rgba(168, 85, 247, 0.25);
+    box-shadow: 
+        0 30px 60px -12px rgba(0, 0, 0, 0.6), 
+        0 0 50px rgba(168, 85, 247, 0.08),
+        inset 0 1px 0px rgba(255, 255, 255, 0.15);
+}
+
+.uploader-state {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.uploader-state.active {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    opacity: 1;
+}
+
+.uploader-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 5vw, 1.75rem);
+    font-weight: 700;
+    text-align: center;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #FFFFFF 50%, #A5B4FC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.uploader-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.825rem;
+    color: #94A3B8;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: -8px;
+    padding: 0 10px;
+}
+
+.uploader-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.uploader-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.uploader-input-group label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.uploader-input-group input[type="text"] {
+    background: rgba(7, 10, 19, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.uploader-input-group input[type="text"]:focus {
+    border-color: #A855F7;
+    background: rgba(7, 10, 19, 0.8);
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+}
+
+.drag-drop-zone {
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 26px 15px;
+    background: rgba(7, 10, 19, 0.3);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.drag-drop-zone.dragover {
+    border-color: #A855F7;
+    background: rgba(168, 85, 247, 0.08);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.drag-drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.drag-drop-zone:hover .upload-icon-wrapper {
+    transform: scale(1.06);
+    background: rgba(168, 85, 247, 0.12);
+    border-color: rgba(168, 85, 247, 0.25);
+}
+
+.upload-icon {
+    color: #818CF8;
+    width: 22px;
+    height: 22px;
+    transition: all 0.2s ease;
+}
+
+.drag-drop-zone:hover .upload-icon {
+    color: #A855F7;
+}
+
+.drag-drop-text {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #E2E8F0;
+    line-height: 1.4;
+}
+
+.drag-drop-subtext {
+    font-size: 0.72rem;
+    color: #64748B;
+}
+
+/* File Queue Component */
+.selected-files-queue {
+    background: rgba(7, 10, 19, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+/* Elegant scrollbar for uploader */
+.selected-files-queue::-webkit-scrollbar {
+    width: 4px;
+}
+.selected-files-queue::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+.selected-files-queue::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.queue-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.files-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    animation: fileSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.file-icon {
+    color: #818CF8;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #E2E8F0;
+    font-weight: 500;
+}
+
+.file-size {
+    color: #64748B;
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+
+.remove-file-btn {
+    background: transparent;
+    border: none;
+    color: #EF4444;
+    opacity: 0.75;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.remove-file-btn:hover {
+    opacity: 1;
+    background: rgba(239, 68, 68, 0.15);
+}
+
+/* Info Shield Banner */
+.uploader-info-banner {
+    background: rgba(52, 211, 153, 0.04);
+    border: 1px solid rgba(52, 211, 153, 0.15);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.info-shield-icon {
+    color: #34D399;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+}
+
+.info-text {
+    font-size: 0.74rem;
+    color: #A7F3D0;
+    line-height: 1.45;
+    text-align: left;
+}
+
+/* Gradient Primary Button */
+.uploader-gradient-btn {
+    background: linear-gradient(135deg, #A855F7 0%, #D946EF 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 
+        0 8px 20px -6px rgba(168, 85, 247, 0.4), 
+        0 0 15px rgba(217, 70, 239, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    outline: none;
+}
+
+.uploader-gradient-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 12px 25px -6px rgba(168, 85, 247, 0.5), 
+        0 0 20px rgba(217, 70, 239, 0.25);
+}
+
+.uploader-gradient-btn:active {
+    transform: translateY(0);
+}
+
+.uploader-gradient-btn:disabled {
+    background: #1E293B;
+    color: #475569;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.uploader-gradient-btn .btn-icon {
+    width: 16px;
+    height: 16px;
+    color: #FFFFFF;
+}
+
+/* State 2: Progress Mode */
+.progress-spinner-container {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 5px auto 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.premium-spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3.5px solid rgba(168, 85, 247, 0.1);
+    border-top-color: #A855F7;
+    border-radius: 50%;
+    animation: uploaderSpin 1.1s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+}
+
+.spinner-icon {
+    color: #A855F7;
+    width: 20px;
+    height: 20px;
+    animation: uploaderSpinRev 3.5s linear infinite;
+}
+
+.progress-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.progress-subtitle {
+    font-size: 0.8rem;
+    color: #818CF8;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: -6px;
+    font-weight: 500;
+    padding: 0 20px;
+}
+
+.progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+}
+
+.progress-bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.progress-percentage {
+    color: #A855F7;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.progress-bar-track {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 9999px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #A855F7 0%, #D946EF 100%);
+    border-radius: 9999px;
+    width: 0%;
+    transition: width 0.25s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.overall-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.overall-fill {
+    background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 50%, #D946EF 100%);
+}
+
+#overall-pct {
+    color: #3B82F6;
+}
+
+/* Warning Banner */
+.uploader-warning-banner {
+    background: rgba(245, 158, 11, 0.04);
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.warning-alert-icon {
+    color: #F59E0B;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+}
+
+.warning-text {
+    font-size: 0.74rem;
+    color: #FDE68A;
+    line-height: 1.45;
+    text-align: left;
+}
+
+/* State 3: Success Screen */
+.success-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 5px auto;
+}
+
+.success-icon-bg {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploader-check-icon {
+    color: #10B981;
+    width: 38px;
+    height: 38px;
+}
+
+.success-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.success-subtitle {
+    font-size: 0.825rem;
+    color: #94A3B8;
+    text-align: center;
+    line-height: 1.55;
+    margin-top: -6px;
+    padding: 0 15px;
+}
+
+.uploader-outline-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.uploader-outline-btn:hover {
+    border-color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.uploader-outline-btn .btn-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* ==========================================================================
+   GLOBAL PREMIUM TOAST NOTIFICATION SYSTEM
+   ========================================================================== */
+.toast-container {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    max-width: 360px;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    pointer-events: auto;
+    animation: uploaderToastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast.success {
+    border-left: 4px solid #10B981;
+}
+
+.toast.error {
+    border-left: 4px solid #EF4444;
+}
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.toast.success .toast-icon {
+    color: #10B981;
+}
+
+.toast.error .toast-icon {
+    color: #EF4444;
+}
+
+.toast-message {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #F1F5F9;
+    line-height: 1.4;
+}
+
+.toast.hide {
+    animation: uploaderToastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Animations */
+@keyframes uploaderSpin {
+    100% { transform: rotate(360deg); }
+}
+@keyframes uploaderSpinRev {
+    100% { transform: rotate(-360deg); }
+}
+@keyframes fileSlideIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes uploaderToastIn {
+    0% { opacity: 0; transform: translate(-50%, -20px) scale(0.92); }
+    100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+@keyframes uploaderToastOut {
+    0% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -15px) scale(0.92); }
+}
+
+/* Mobile responsive fixes */
+@media screen and (max-width: 480px) {
+    .media-uploader-section {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    .uploader-card {
+        padding: 25px 18px;
+        border-radius: 20px;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
