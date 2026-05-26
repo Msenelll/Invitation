@@ -1105,6 +1105,54 @@ body {
     transition: all 0.5s ease;
 }
 
+/* Scoped Corner Flower Ornaments for smaller Uploader Plaque */
+.uploader-card .corner-ornament {
+    width: 220px;
+    height: 220px;
+    opacity: 0.95;
+    z-index: 4;
+}
+
+.uploader-card .corner-ornament.top-left {
+    top: -35px;
+    left: -35px;
+    transform: rotate(180deg);
+}
+
+.uploader-card .corner-ornament.top-right {
+    top: -35px;
+    right: -35px;
+    transform: none;
+}
+
+.uploader-card .corner-ornament.bottom-left {
+    bottom: -35px;
+    left: -35px;
+    transform: rotate(180deg);
+}
+
+.uploader-card .corner-ornament.bottom-right {
+    bottom: -35px;
+    right: -35px;
+    transform: none;
+}
+
+.uploader-card:hover .corner-ornament.top-left {
+    transform: rotate(180deg) scale(1.05);
+}
+
+.uploader-card:hover .corner-ornament.top-right {
+    transform: scale(1.05);
+}
+
+.uploader-card:hover .corner-ornament.bottom-left {
+    transform: rotate(180deg) scale(1.05);
+}
+
+.uploader-card:hover .corner-ornament.bottom-right {
+    transform: scale(1.05);
+}
+
 .uploader-card:hover {
     box-shadow: 
         0 30px 60px rgba(78, 72, 66, 0.14), 
