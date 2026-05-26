@@ -19,8 +19,8 @@
     /* Typography Scales */
     --font-serif: 'Cinzel', serif;
     --font-sans: 'Montserrat', sans-serif;
-    --font-cursive: 'Great Vibes', cursive;
-    --font-calligraphy: 'Pinyon Script', cursive;
+    --font-cursive: 'Allura', cursive;
+    --font-calligraphy: 'Allura', cursive;
     
     /* Transition Timings */
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -213,15 +213,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    
     border-radius: 12px;
-    box-shadow: 
-        0 20px 40px rgba(78, 72, 66, 0.08), 
-        0 1px 3px rgba(0, 0, 0, 0.02),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.8),
-        inset 0 0 30px rgba(0, 0, 0, 0.015);
-    
-    /* Deep padding inset to focus content */
+    box-shadow: 0 20px 40px rgba(78, 72, 66, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02), inset 0 0 0 1px rgba(255, 255, 255, 0.8), inset 0 0 30px rgba(0, 0, 0, 0.015);
     padding: 85px 45px;
     overflow: hidden;
     display: flex;
@@ -232,10 +225,7 @@ body {
 }
 
 .invitation-card:hover {
-    box-shadow: 
-        0 30px 60px rgba(78, 72, 66, 0.12),
-        0 1px 5px rgba(0, 0, 0, 0.02),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+    box-shadow: 0 30px 60px rgba(78, 72, 66, 0.14), 0 1px 3px rgba(0, 0, 0, 0.02), inset 0 0 0 1px rgba(255, 255, 255, 0.95), inset 0 0 30px rgba(0, 0, 0, 0.01);
 }
 
 /* Inner Gold Passepartout line */
@@ -392,7 +382,7 @@ body {
     font-family: var(--font-calligraphy);
     font-weight: 400;
     font-size: clamp(2.8rem, 8.5vw, 4rem); /* Dönen çerçevenin içine tam sığması için hafif dengelendi */
-    line-height: 0.85;
+    line-height: 1.0;
     letter-spacing: 0px;
     color: var(--text-charcoal);
     text-transform: none;
@@ -421,7 +411,7 @@ body {
     font-size: clamp(2rem, 7vw, 2.8rem);
     color: var(--gold-foil);
     font-weight: 400;
-    margin: -10px 0;
+    margin: 12px 0; /* Breathing space to prevent layout overlapping */
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -567,6 +557,7 @@ body {
 .venue-section {
     margin-bottom: 45px;
 }
+
 
 .venue-title {
     font-size: 1.8rem;
@@ -1037,24 +1028,24 @@ body {
     }
         /* Responsive corner ornaments adjustment */
     .corner-ornament {
-        width: 170px;
-        height: 170px;
+        width: 200px;
+        height: 200px;
     }
     .corner-ornament.top-left {
-        top: -35px;
-        left: -35px;
+        top: -18px;
+        left: -18px;
     }
     .corner-ornament.top-right {
-        top: -35px;
-        right: -35px;
+        top: -18px;
+        right: -18px;
     }
     .corner-ornament.bottom-left {
-        bottom: -35px;
-        left: -35px;
+        bottom: -18px;
+        left: -18px;
     }
     .corner-ornament.bottom-right {
-        bottom: -35px;
-        right: -35px;
+        bottom: -18px;
+        right: -18px;
     }
 }
 
