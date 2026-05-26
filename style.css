@@ -17,8 +17,8 @@
     --gold-bevel: inset 1px 1px 1px rgba(255, 255, 255, 0.6), inset -1px -1px 1px rgba(0, 0, 0, 0.2);
     
     /* Typography Scales */
-    --font-serif: 'Allura', cursive;
-    --font-sans: 'Allura', cursive;
+    --font-serif: 'Cinzel', serif;
+    --font-sans: 'Montserrat', sans-serif;
     --font-cursive: 'Allura', cursive;
     --font-calligraphy: 'Allura', cursive;
     
